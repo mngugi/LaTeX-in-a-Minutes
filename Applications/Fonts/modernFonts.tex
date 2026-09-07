@@ -1,15 +1,21 @@
-\documentclass[12pt]{article}
-\usepackage{fontspec}
+\documentclass{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
 
-\setmainfont{Times New Roman}
-\title{Sample font document}
-\author{Overleaf}
-\date{\today}
+% Times New Roman style
+\usepackage{mathptmx}
+% or \usepackage{newtxtext, newtxmath}
+
+% Arial style (Helvetica)
+% \usepackage{helvet}
+% \renewcommand{\familydefault}{\sfdefault}
+
+% Georgia style
+% \usepackage{charter}
 
 \begin{document}
-	\maketitle
+	This is a test document.
 	
-	This is an \textit{example} of a document compiled 
-	with \textbf{XeLaTeX}. LuaLaTeX should also work too.
-	
+	\section{Introduction}
+	This is a sample paragraph with Times New Roman style.
 \end{document}
