@@ -1,0 +1,469 @@
+\documentclass[aspectratio=169,11pt]{beamer}
+
+% ------------------------------------------------
+% THEME
+% ------------------------------------------------
+
+\usetheme{Madrid}
+
+% ------------------------------------------------
+% PACKAGES
+% ------------------------------------------------
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+% ------------------------------------------------
+% PRESENTATION INFORMATION
+% ------------------------------------------------
+
+\title[AI Cybercrime Forensics]
+{Forensics for Cybercrimes Committed Using Artificial Intelligence}
+
+\subtitle
+{PhD Research Presentation}
+
+\author[Peter M. Ngugi]
+{Peter M. Ngugi}
+
+\institute[Zetech University]
+{
+	School of Computing and Informatics\\
+	Zetech University\\
+	PhD in Computer Science
+}
+
+\date
+{2026}
+
+% ------------------------------------------------
+% FOOTER
+% ------------------------------------------------
+
+\setbeamertemplate{navigation symbols}{}
+
+\setbeamertemplate{footline}
+{
+	\leavevmode%
+	\hbox{
+		\begin{beamercolorbox}
+			[wd=.33\paperwidth,ht=2.5ex,dp=1ex,left]
+			{author in head/foot}
+			\hspace{1em}Peter M. Ngugi
+		\end{beamercolorbox}
+		
+		\begin{beamercolorbox}
+			[wd=.34\paperwidth,ht=2.5ex,dp=1ex,center]
+			{title in head/foot}
+			PhD Computer Science
+		\end{beamercolorbox}
+		
+		\begin{beamercolorbox}
+			[wd=.33\paperwidth,ht=2.5ex,dp=1ex,right]
+			{date in head/foot}
+			\insertframenumber{} / \inserttotalframenumber
+			\hspace{1em}
+		\end{beamercolorbox}
+	}
+}
+
+% ------------------------------------------------
+% DOCUMENT
+% ------------------------------------------------
+
+\begin{document}
+	
+	% ------------------------------------------------
+	% TITLE PAGE
+	% ------------------------------------------------
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+	% ------------------------------------------------
+	% OUTLINE
+	% ------------------------------------------------
+	
+	\begin{frame}{Presentation Outline}
+		
+		\tableofcontents
+		
+	\end{frame}
+	
+	% ------------------------------------------------
+	% SECTION 1
+	% ------------------------------------------------
+	
+	\section{Introduction}
+	
+	\begin{frame}{Introduction}
+		
+		Artificial Intelligence is increasingly being incorporated
+		into systems used for communication, automation,
+		decision-making and cyber operations.
+		
+		\vspace{0.5cm}
+		
+		This creates a new forensic challenge:
+		
+		\begin{block}{Research Problem}
+			How can digital investigators reliably identify,
+			collect, preserve, analyse and present evidence
+			when cybercrimes involve AI-generated or
+			AI-assisted activity?
+		\end{block}
+		
+	\end{frame}
+	
+	% ------------------------------------------------
+	% SECTION 2
+	% ------------------------------------------------
+	
+	\section{Problem Statement}
+	
+	\begin{frame}{Problem Statement}
+		
+		Traditional digital forensic approaches generally assume
+		that evidence can be associated with identifiable
+		devices, accounts, users or processes.
+		
+		\vspace{0.4cm}
+		
+		AI-assisted cybercrime introduces additional questions:
+		
+		\begin{itemize}
+			
+			\item Who actually performed the action?
+			
+			\item Was the action human-generated or AI-assisted?
+			
+			\item How can investigators establish provenance?
+			
+			\item Can AI-generated evidence be authenticated?
+			
+			\item How should attribution be established?
+			
+			\item How can such evidence be presented in court?
+			
+		\end{itemize}
+		
+	\end{frame}
+	
+	% ------------------------------------------------
+	% SECTION 3
+	% ------------------------------------------------
+	
+	\section{Research Objectives}
+	
+	\begin{frame}{Research Objectives}
+		
+		\textbf{General Objective}
+		
+		\begin{block}{Objective}
+			To develop a digital forensic framework for investigating
+			cybercrimes committed using Artificial Intelligence.
+		\end{block}
+		
+		\vspace{0.4cm}
+		
+		\textbf{Specific Objectives}
+		
+		\begin{enumerate}
+			
+			\item Examine existing AI-assisted cybercrime techniques.
+			
+			\item Evaluate existing digital forensic approaches.
+			
+			\item Investigate methods for establishing evidence
+			provenance and integrity.
+			
+			\item Develop a forensic framework for AI-assisted
+			cybercrime investigations.
+			
+			\item Evaluate the proposed framework.
+			
+		\end{enumerate}
+		
+	\end{frame}
+	
+	% ------------------------------------------------
+	% SECTION 4
+	% ------------------------------------------------
+	
+	\section{Research Questions}
+	
+	\begin{frame}{Research Questions}
+		
+		\begin{enumerate}
+			
+			\item How is AI being used to facilitate cybercrime?
+			
+			\item What limitations exist in current digital forensic
+			approaches?
+			
+			\item How can AI-generated evidence be authenticated?
+			
+			\item How can provenance and attribution be established?
+			
+			\item What forensic framework can support investigation
+			and courtroom presentation?
+			
+		\end{enumerate}
+		
+	\end{frame}
+	
+	% ------------------------------------------------
+	% SECTION 5
+	% ------------------------------------------------
+	
+	\section{Literature Review}
+	
+	\begin{frame}{Literature Review}
+		
+		The literature will be examined across four major areas:
+		
+		\begin{columns}
+			
+			\column{0.48\textwidth}
+			
+			\begin{block}{Digital Forensics}
+				\begin{itemize}
+					\item Evidence acquisition
+					\item Preservation
+					\item Analysis
+					\item Presentation
+				\end{itemize}
+			\end{block}
+			
+			\column{0.48\textwidth}
+			
+			\begin{block}{AI and Cybercrime}
+				\begin{itemize}
+					\item Generative AI
+					\item Deepfakes
+					\item Automated attacks
+					\item AI-assisted fraud
+				\end{itemize}
+			\end{block}
+			
+		\end{columns}
+		
+	\end{frame}
+	
+	% ------------------------------------------------
+	% SECTION 6
+	% ------------------------------------------------
+	
+	\section{Theoretical Framework}
+	
+	\begin{frame}{Theoretical Framework}
+		
+		The study will examine relevant theories and formal
+		models that can explain forensic evidence and attribution.
+		
+		\vspace{0.4cm}
+		
+		Potential theoretical foundations include:
+		
+		\begin{itemize}
+			
+			\item Digital Forensics Theory
+			
+			\item Information Security Theory
+			
+			\item Evidence and Authentication Principles
+			
+			\item Attribution Theory
+			
+			\item Computational and Formal Reasoning
+			
+		\end{itemize}
+		
+	\end{frame}
+	
+	% ------------------------------------------------
+	% SECTION 7
+	% ------------------------------------------------
+	
+	\section{Methodology}
+	
+	\begin{frame}{Research Methodology}
+		
+		\begin{block}{Research Approach}
+			The study will employ an appropriate mixed-methods /
+			computational research approach depending on the
+			research phase and research questions.
+		\end{block}
+		
+		\vspace{0.5cm}
+		
+		\begin{itemize}
+			
+			\item Literature analysis
+			
+			\item Digital forensic experimentation
+			
+			\item Dataset analysis
+			
+			\item AI-assisted cybercrime scenarios
+			
+			\item Framework development
+			
+			\item Experimental evaluation
+			
+		\end{itemize}
+		
+	\end{frame}
+	
+	% ------------------------------------------------
+	% SECTION 8
+	% ------------------------------------------------
+	
+	\section{Proposed Framework}
+	
+	\begin{frame}{Proposed Forensic Framework}
+		
+		\begin{center}
+			
+			\begin{block}{AI Cybercrime Forensic Process}
+				
+				Collection
+				$\rightarrow$
+				Preservation
+				$\rightarrow$
+				Authentication
+				$\rightarrow$
+				Analysis
+				$\rightarrow$
+				Attribution
+				$\rightarrow$
+				Presentation
+				
+			\end{block}
+			
+		\end{center}
+		
+	\end{frame}
+	
+	% ------------------------------------------------
+	% SECTION 9
+	% ------------------------------------------------
+	
+	\section{Contribution to Knowledge}
+	
+	\begin{frame}{Expected Contribution to Knowledge}
+		
+		The research aims to contribute:
+		
+		\begin{enumerate}
+			
+			\item A forensic framework for AI-assisted cybercrime.
+			
+			\item Methods for assessing provenance of AI-generated
+			digital evidence.
+			
+			\item Approaches for authentication and integrity
+			assessment.
+			
+			\item A structured approach to AI-assisted cybercrime
+			attribution.
+			
+			\item Guidance for forensic investigators and
+			legal practitioners.
+			
+		\end{enumerate}
+		
+	\end{frame}
+	
+	% ------------------------------------------------
+	% SECTION 10
+	% ------------------------------------------------
+	
+	\section{Conclusion}
+	
+	\begin{frame}{Conclusion}
+		
+		\begin{block}{Central Argument}
+			AI changes not only how cybercrimes can be committed,
+			but also how digital evidence must be interpreted,
+			authenticated and attributed.
+		\end{block}
+		
+		\vspace{0.5cm}
+		
+		The research therefore seeks to bridge the gap between:
+		
+		\[
+		\boxed{
+			\text{Artificial Intelligence}
+			\quad+\quad
+			\text{Cybercrime}
+			\quad+\quad
+			\text{Digital Forensics}
+			\quad+\quad
+			\text{Evidence}
+		}
+		\]
+		
+	\end{frame}
+	
+	% ------------------------------------------------
+	% REFERENCES
+	% ------------------------------------------------
+	
+	\section{References}
+	
+	\begin{frame}{References}
+		
+		\small
+		
+		\begin{thebibliography}{99}
+			
+			\bibitem{ref1}
+			Author, A. (2025).
+			\textit{Digital Forensics and Artificial Intelligence}.
+			Journal of Cybersecurity Research.
+			
+			\bibitem{ref2}
+			Author, B. (2025).
+			\textit{Artificial Intelligence and Cybercrime}.
+			International Journal of Digital Security.
+			
+		\end{thebibliography}
+		
+	\end{frame}
+	
+	% ------------------------------------------------
+	% END
+	% ------------------------------------------------
+	
+	\begin{frame}
+		
+		\begin{center}
+			
+			\Huge
+			\textbf{Thank You}
+			
+			\vspace{0.8cm}
+			
+			\Large
+			Questions and Discussion
+			
+			\vspace{1cm}
+			
+			\normalsize
+			Peter M. Ngugi\\
+			PhD in Computer Science\\
+			Zetech University
+			
+		\end{center}
+		
+	\end{frame}
+	
+\end{document}
