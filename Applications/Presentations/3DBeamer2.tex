@@ -1,0 +1,1426 @@
+\documentclass[aspectratio=169,11pt]{beamer}
+
+% ============================================================
+% PACKAGES
+% ============================================================
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{tikz}
+
+\usetikzlibrary{
+	positioning,
+	shapes.geometric,
+	shadows,
+	calc,
+	arrows.meta
+}
+
+% ============================================================
+% REMOVE BEAMER NAVIGATION ICONS
+% ============================================================
+
+\setbeamertemplate{navigation symbols}{}
+
+% ============================================================
+% COLORS
+% ============================================================
+
+\definecolor{PaperWhite}{RGB}{248,250,252}
+\definecolor{GridGray}{RGB}{215,222,230}
+
+\definecolor{CyberBlue}{RGB}{35,95,160}
+\definecolor{CyberCyan}{RGB}{0,145,170}
+
+\definecolor{DarkText}{RGB}{35,45,55}
+\definecolor{MutedText}{RGB}{100,110,120}
+
+\definecolor{SoftBlue}{RGB}{235,243,250}
+\definecolor{SoftCyan}{RGB}{235,249,250}
+
+\definecolor{LineGray}{RGB}{190,200,210}
+
+% ============================================================
+% BEAMER COLORS
+% ============================================================
+
+\setbeamercolor{normal text}{
+	fg=DarkText,
+	bg=PaperWhite
+}
+
+\setbeamercolor{structure}{
+	fg=CyberBlue
+}
+
+\setbeamercolor{frametitle}{
+	fg=CyberBlue,
+	bg=PaperWhite
+}
+
+\setbeamercolor{title}{
+	fg=CyberBlue
+}
+
+\setbeamercolor{subtitle}{
+	fg=MutedText
+}
+
+\setbeamercolor{author}{
+	fg=DarkText
+}
+
+\setbeamercolor{institute}{
+	fg=MutedText
+}
+
+\setbeamercolor{date}{
+	fg=MutedText
+}
+
+% ============================================================
+% BLOCK COLORS
+% ============================================================
+
+\setbeamercolor{block title}{
+	fg=white,
+	bg=CyberBlue
+}
+
+\setbeamercolor{block body}{
+	fg=DarkText,
+	bg=SoftBlue
+}
+
+% ============================================================
+% ITEMIZE
+% ============================================================
+
+\setbeamertemplate{itemize item}
+{
+	\tikz{
+		\fill[CyberCyan] (0,0) circle (2pt);
+	}
+}
+
+\setbeamertemplate{itemize subitem}
+{
+	\tikz{
+		\fill[CyberBlue] (0,0) circle (1.5pt);
+	}
+}
+
+% ============================================================
+% LIGHT GRID BACKGROUND
+% ============================================================
+
+\setbeamertemplate{background}
+{
+	\begin{tikzpicture}[remember picture,overlay]
+		
+		% Main paper background
+		\fill[PaperWhite]
+		(current page.south west)
+		rectangle
+		(current page.north east);
+		
+		% Fine square grid
+		\draw[
+		GridGray,
+		opacity=0.45,
+		line width=0.25pt
+		]
+		(current page.south west)
+		grid[
+		step=0.5cm
+		]
+		(current page.north east);
+		
+		% Larger structural grid
+		\draw[
+		GridGray,
+		opacity=0.25,
+		line width=0.45pt
+		]
+		(current page.south west)
+		grid[
+		step=2.5cm
+		]
+		(current page.north east);
+		
+		% Small decorative nodes
+		\fill[
+		CyberCyan,
+		opacity=0.45
+		]
+		([xshift=-1cm,yshift=-1cm]current page.north east)
+		circle (2pt);
+		
+		\fill[
+		CyberBlue,
+		opacity=0.35
+		]
+		([xshift=-3cm,yshift=-2cm]current page.north east)
+		circle (1.5pt);
+		
+		\fill[
+		CyberCyan,
+		opacity=0.35
+		]
+		([xshift=2cm,yshift=1cm]current page.south west)
+		circle (2pt);
+		
+	\end{tikzpicture}
+}
+
+% ============================================================
+% FRAME TITLE
+% ============================================================
+
+\setbeamertemplate{frametitle}
+{
+	\vspace{0.25cm}
+	
+	\begin{tikzpicture}
+		
+		\node[
+		anchor=west,
+		font=\Large\bfseries,
+		text=CyberBlue
+		]
+		{\insertframetitle};
+		
+		% Title underline
+		\draw[
+		CyberCyan,
+		line width=1.2pt
+		]
+		(0,-0.18)
+		--
+		(10.5,-0.18);
+		
+	\end{tikzpicture}
+	
+	\vspace{0.15cm}
+}
+
+% ============================================================
+% FOOTER
+% ============================================================
+
+\setbeamertemplate{footline}
+{
+	\begin{tikzpicture}[remember picture,overlay]
+		
+		% Footer line
+		\draw[
+		LineGray,
+		line width=0.5pt
+		]
+		([yshift=0.38cm]current page.south west)
+		--
+		([yshift=0.38cm]current page.south east);
+		
+		% Author
+		\node[
+		anchor=south west,
+		text=MutedText,
+		font=\tiny
+		]
+		at ([xshift=0.35cm,yshift=0.07cm]current page.south west)
+		{
+			Peter M. Ngugi
+			\quad|\quad
+			PhD Computer Science
+		};
+		
+		% Page number
+		\node[
+		anchor=south east,
+		text=CyberBlue,
+		font=\tiny
+		]
+		at ([xshift=-0.35cm,yshift=0.07cm]current page.south east)
+		{
+			\insertframenumber{}
+			/
+			\inserttotalframenumber
+		};
+		
+	\end{tikzpicture}
+}
+
+% ============================================================
+% TITLE PAGE
+% ============================================================
+
+\setbeamertemplate{title page}
+{
+	
+	\begin{tikzpicture}[remember picture,overlay]
+		
+		% --------------------------------------------------------
+		% Perspective floor
+		% --------------------------------------------------------
+		
+		\foreach \x in {0,0.5,...,10}
+		{
+			\draw[
+			GridGray,
+			opacity=0.45,
+			line width=0.3pt
+			]
+			([xshift=\x cm,yshift=0cm]current page.south west)
+			--
+			([xshift=5cm,yshift=5cm]current page.south west);
+		}
+		
+		\foreach \y in {0,0.5,...,5}
+		{
+			\draw[
+			GridGray,
+			opacity=0.35,
+			line width=0.3pt
+			]
+			([xshift=0cm,yshift=\y cm]current page.south west)
+			--
+			([xshift=10cm,yshift=\y cm]current page.south west);
+		}
+		
+		% --------------------------------------------------------
+		% 3D CUBE
+		% --------------------------------------------------------
+		
+		% Front face
+		\draw[
+		CyberBlue,
+		line width=1.3pt
+		]
+		([xshift=5.2cm,yshift=1.1cm]current page.south west)
+		--
+		([xshift=7.8cm,yshift=1.1cm]current page.south west)
+		--
+		([xshift=7.8cm,yshift=3.7cm]current page.south west)
+		--
+		([xshift=5.2cm,yshift=3.7cm]current page.south west)
+		-- cycle;
+		
+		% Top face
+		\draw[
+		CyberCyan,
+		line width=1.3pt
+		]
+		([xshift=5.2cm,yshift=3.7cm]current page.south west)
+		--
+		([xshift=6.3cm,yshift=4.7cm]current page.south west)
+		--
+		([xshift=8.9cm,yshift=4.7cm]current page.south west)
+		--
+		([xshift=7.8cm,yshift=3.7cm]current page.south west);
+		
+		% Right face
+		\draw[
+		CyberBlue,
+		line width=1.3pt
+		]
+		([xshift=7.8cm,yshift=1.1cm]current page.south west)
+		--
+		([xshift=8.9cm,yshift=2.1cm]current page.south west)
+		--
+		([xshift=8.9cm,yshift=4.7cm]current page.south west)
+		--
+		([xshift=7.8cm,yshift=3.7cm]current page.south west);
+		
+		% --------------------------------------------------------
+		% CUBE INTERNAL NETWORK
+		% --------------------------------------------------------
+		
+		\draw[
+		CyberCyan,
+		line width=0.8pt,
+		opacity=0.8
+		]
+		([xshift=5.7cm,yshift=2.1cm]current page.south west)
+		--
+		([xshift=7.1cm,yshift=3.0cm]current page.south west)
+		--
+		([xshift=8.2cm,yshift=2.4cm]current page.south west);
+		
+		\fill[
+		CyberCyan
+		]
+		([xshift=5.7cm,yshift=2.1cm]current page.south west)
+		circle (3pt);
+		
+		\fill[
+		CyberBlue
+		]
+		([xshift=7.1cm,yshift=3.0cm]current page.south west)
+		circle (3pt);
+		
+		\fill[
+		CyberCyan
+		]
+		([xshift=8.2cm,yshift=2.4cm]current page.south west)
+		circle (3pt);
+		
+	\end{tikzpicture}
+	
+	% ------------------------------------------------------------
+	% TITLE
+	% ------------------------------------------------------------
+	
+	\vspace*{0.65cm}
+	
+	\begin{flushleft}
+		
+		{\fontsize{24}{29}\selectfont
+			\bfseries
+			\color{CyberBlue}
+			Forensics for Cybercrimes
+		}
+		
+		\vspace{0.05cm}
+		
+		{\fontsize{24}{29}\selectfont
+			\bfseries
+			\color{DarkText}
+			Committed Using Artificial Intelligence
+		}
+		
+		\vspace{0.35cm}
+		
+		\draw[
+		CyberCyan,
+		line width=2pt
+		]
+		(0,0) -- (7.2,0);
+		
+		\vspace{0.35cm}
+		
+		{\large
+			\color{MutedText}
+			A Digital Forensic Framework for
+			AI-Assisted Cybercrime
+		}
+		
+		\vspace{0.9cm}
+		
+		{\large
+			\color{DarkText}
+			\textbf{Peter M. Ngugi}
+		}
+		
+		\vspace{0.15cm}
+		
+		{\small
+			\color{MutedText}
+			PhD in Computer Science\\
+			Zetech University
+		}
+		
+		\vspace{0.2cm}
+		
+		{\small
+			\color{MutedText}
+			2026
+		}
+		
+	\end{flushleft}
+	
+}
+
+% ============================================================
+% TITLE INFORMATION
+% ============================================================
+
+\title[
+AI Cybercrime Forensics
+]
+{
+	Forensics for Cybercrimes Committed Using Artificial Intelligence
+}
+
+\subtitle{
+	A Digital Forensic Framework for AI-Assisted Cybercrime
+}
+
+\author{
+	Peter M. Ngugi
+}
+
+\institute{
+	PhD in Computer Science\\
+	Zetech University
+}
+
+\date{
+	2026
+}
+
+% ============================================================
+% DOCUMENT
+% ============================================================
+
+\begin{document}
+	
+	% ============================================================
+	% TITLE SLIDE
+	% ============================================================
+	
+	\begin{frame}[plain]
+		
+		\titlepage
+		
+	\end{frame}
+	
+	% ============================================================
+	% OUTLINE
+	% ============================================================
+	
+	\begin{frame}{Research Roadmap}
+		
+		\begin{center}
+			
+			\begin{tikzpicture}[node distance=0.55cm]
+				
+				\node[
+				draw=CyberBlue,
+				fill=SoftBlue,
+				rounded corners,
+				minimum width=2.3cm,
+				minimum height=0.7cm
+				]
+				(A)
+				{Introduction};
+				
+				\node[
+				draw=CyberBlue,
+				fill=SoftBlue,
+				rounded corners,
+				minimum width=2.3cm,
+				minimum height=0.7cm,
+				right=of A
+				]
+				(B)
+				{Problem};
+				
+				\node[
+				draw=CyberBlue,
+				fill=SoftBlue,
+				rounded corners,
+				minimum width=2.3cm,
+				minimum height=0.7cm,
+				right=of B
+				]
+				(C)
+				{Literature};
+				
+				\node[
+				draw=CyberBlue,
+				fill=SoftBlue,
+				rounded corners,
+				minimum width=2.3cm,
+				minimum height=0.7cm,
+				right=of C
+				]
+				(D)
+				{Methodology};
+				
+				\node[
+				draw=CyberBlue,
+				fill=SoftBlue,
+				rounded corners,
+				minimum width=2.3cm,
+				minimum height=0.7cm,
+				right=of D
+				]
+				(E)
+				{Framework};
+				
+				\node[
+				draw=CyberBlue,
+				fill=SoftBlue,
+				rounded corners,
+				minimum width=2.3cm,
+				minimum height=0.7cm,
+				right=of E
+				]
+				(F)
+				{Findings};
+				
+				\draw[
+				->,
+				>=Stealth,
+				CyberCyan,
+				line width=1pt
+				]
+				(A) -- (B);
+				
+				\draw[
+				->,
+				>=Stealth,
+				CyberCyan,
+				line width=1pt
+				]
+				(B) -- (C);
+				
+				\draw[
+				->,
+				>=Stealth,
+				CyberCyan,
+				line width=1pt
+				]
+				(C) -- (D);
+				
+				\draw[
+				->,
+				>=Stealth,
+				CyberCyan,
+				line width=1pt
+				]
+				(D) -- (E);
+				
+				\draw[
+				->,
+				>=Stealth,
+				CyberCyan,
+				line width=1pt
+				]
+				(E) -- (F);
+				
+			\end{tikzpicture}
+			
+			\vspace{0.7cm}
+			
+			\begin{tikzpicture}
+				
+				\node[
+				draw=CyberCyan,
+				fill=SoftCyan,
+				rounded corners,
+				minimum width=3cm,
+				minimum height=0.8cm
+				]
+				{Contribution};
+				
+				\node[
+				draw=CyberBlue,
+				fill=SoftBlue,
+				rounded corners,
+				minimum width=3cm,
+				minimum height=0.8cm,
+				right=0.8cm of current bounding box
+				]
+				{Conclusion};
+				
+			\end{tikzpicture}
+			
+		\end{center}
+		
+	\end{frame}
+	
+	% ============================================================
+	% INTRODUCTION
+	% ============================================================
+	
+	\section{Introduction}
+	
+	\begin{frame}{Research Context}
+		
+		Artificial Intelligence is changing the cybercrime
+		landscape.
+		
+		\vspace{0.4cm}
+		
+		\begin{columns}
+			
+			\column{0.47\textwidth}
+			
+			\begin{block}{Traditional Cybercrime}
+				
+				\begin{itemize}
+					
+					\item Human-controlled systems
+					
+					\item Identifiable devices
+					
+					\item Conventional malware
+					
+					\item Established forensic procedures
+					
+				\end{itemize}
+				
+			\end{block}
+			
+			\column{0.47\textwidth}
+			
+			\begin{block}{AI-Assisted Cybercrime}
+				
+				\begin{itemize}
+					
+					\item Automated attacks
+					
+					\item Synthetic identities
+					
+					\item AI-generated content
+					
+					\item Autonomous decision-making
+					
+				\end{itemize}
+				
+			\end{block}
+			
+		\end{columns}
+		
+	\end{frame}
+	
+	% ============================================================
+	
+	% FORENSIC CHALLENGE
+	% ============================================================
+	
+	\begin{frame}{The Forensic Challenge}
+		
+		\begin{center}
+			
+			\begin{tikzpicture}[node distance=1.4cm]
+				
+				\node[
+				draw=CyberCyan,
+				fill=SoftCyan,
+				rounded corners,
+				minimum width=2.4cm,
+				minimum height=0.9cm
+				]
+				(AI)
+				{\textbf{AI}};
+				
+				\node[
+				draw=CyberBlue,
+				fill=SoftBlue,
+				rounded corners,
+				minimum width=2.4cm,
+				minimum height=0.9cm,
+				right=of AI
+				]
+				(CYBER)
+				{\textbf{Cybercrime}};
+				
+				\node[
+				draw=CyberCyan,
+				fill=SoftCyan,
+				rounded corners,
+				minimum width=2.4cm,
+				minimum height=0.9cm,
+				right=of CYBER
+				]
+				(EVID)
+				{\textbf{Evidence}};
+				
+				\node[
+				draw=CyberBlue,
+				fill=SoftBlue,
+				rounded corners,
+				minimum width=2.4cm,
+				minimum height=0.9cm,
+				right=of EVID
+				]
+				(FOR)
+				{\textbf{Forensics}};
+				
+				\draw[
+				->,
+				>=Stealth,
+				CyberCyan,
+				line width=1.2pt
+				]
+				(AI) -- (CYBER);
+				
+				\draw[
+				->,
+				>=Stealth,
+				CyberCyan,
+				line width=1.2pt
+				]
+				(CYBER) -- (EVID);
+				
+				\draw[
+				->,
+				>=Stealth,
+				CyberCyan,
+				line width=1.2pt
+				]
+				(EVID) -- (FOR);
+				
+			\end{tikzpicture}
+			
+		\end{center}
+		
+		\vspace{0.7cm}
+		
+		\begin{center}
+			
+			\Large
+			\textit{What happened?}
+			
+			\vspace{0.3cm}
+			
+			\color{CyberCyan}
+			$\Downarrow$
+			
+			\vspace{0.3cm}
+			
+			\Large
+			\textit{Who or what caused it?}
+			
+			\vspace{0.3cm}
+			
+			\color{CyberCyan}
+			$\Downarrow$
+			
+			\vspace{0.3cm}
+			
+			\Large
+			\textit{Can we prove it?}
+			
+		\end{center}
+		
+	\end{frame}
+	
+	% ============================================================
+	% PROBLEM STATEMENT
+	% ============================================================
+	
+	\section{Problem Statement}
+	
+	\begin{frame}{Problem Statement}
+		
+		Traditional digital forensic approaches often assume
+		that evidence can be associated with identifiable
+		devices, accounts, users or processes.
+		
+		\vspace{0.5cm}
+		
+		AI-assisted cybercrime introduces additional questions:
+		
+		\begin{itemize}
+			
+			\item Who actually performed the action?
+			
+			\item Was the action human-generated or AI-assisted?
+			
+			\item How can investigators establish provenance?
+			
+			\item Can AI-generated evidence be authenticated?
+			
+			\item How should attribution be established?
+			
+			\item How can such evidence be presented in court?
+			
+		\end{itemize}
+		
+	\end{frame}
+	
+	% ============================================================
+	% OBJECTIVES
+	% ============================================================
+	
+	\section{Research Objectives}
+	
+	\begin{frame}{Research Objectives}
+		
+		\begin{block}{General Objective}
+			
+			To develop a digital forensic framework for investigating
+			cybercrimes committed using Artificial Intelligence.
+			
+		\end{block}
+		
+		\vspace{0.3cm}
+		
+		\textbf{Specific Objectives}
+		
+		\begin{enumerate}
+			
+			\item Examine AI-assisted cybercrime techniques.
+			
+			\item Evaluate existing digital forensic approaches.
+			
+			\item Investigate evidence provenance and integrity.
+			
+			\item Develop a forensic framework.
+			
+			\item Evaluate the proposed framework.
+			
+		\end{enumerate}
+		
+	\end{frame}
+	
+	% ============================================================
+	% RESEARCH QUESTIONS
+	% ============================================================
+	
+	\section{Research Questions}
+	
+	\begin{frame}{Research Questions}
+		
+		\begin{enumerate}
+			
+			\item How is AI being used to facilitate cybercrime?
+			
+			\item What limitations exist in current digital forensic
+			approaches?
+			
+			\item How can AI-generated evidence be authenticated?
+			
+			\item How can provenance and attribution be established?
+			
+			\item What forensic framework can support investigation
+			and courtroom presentation?
+			
+		\end{enumerate}
+		
+	\end{frame}
+	
+	% ============================================================
+	% LITERATURE
+	% ============================================================
+	
+	\section{Literature Review}
+	
+	\begin{frame}{Literature Review}
+		
+		\begin{columns}
+			
+			\column{0.48\textwidth}
+			
+			\begin{block}{Digital Forensics}
+				
+				\begin{itemize}
+					
+					\item Evidence acquisition
+					
+					\item Preservation
+					
+					\item Examination
+					
+					\item Analysis
+					
+					\item Presentation
+					
+				\end{itemize}
+				
+			\end{block}
+			
+			\column{0.48\textwidth}
+			
+			\begin{block}{AI and Cybercrime}
+				
+				\begin{itemize}
+					
+					\item Generative AI
+					
+					\item Deepfakes
+					
+					\item Automated attacks
+					
+					\item AI-assisted fraud
+					
+					\item Synthetic content
+					
+				\end{itemize}
+				
+			\end{block}
+			
+		\end{columns}
+		
+	\end{frame}
+	
+	% ============================================================
+	% THEORETICAL FRAMEWORK
+	% ============================================================
+	
+	\section{Theoretical Framework}
+	
+	\begin{frame}{Theoretical Framework}
+		
+		The research connects computational reasoning
+		with digital forensic analysis.
+		
+		\vspace{0.5cm}
+		
+		\begin{center}
+			
+			\begin{tikzpicture}
+				
+				\node[
+				draw=CyberBlue,
+				fill=SoftBlue,
+				rounded corners,
+				minimum width=3.2cm,
+				minimum height=1cm
+				]
+				(A)
+				{Computer Science};
+				
+				\node[
+				draw=CyberCyan,
+				fill=SoftCyan,
+				rounded corners,
+				minimum width=3.2cm,
+				minimum height=1cm,
+				right=1.2cm of A
+				]
+				(B)
+				{Cybersecurity};
+				
+				\node[
+				draw=CyberBlue,
+				fill=SoftBlue,
+				rounded corners,
+				minimum width=3.2cm,
+				minimum height=1cm,
+				right=1.2cm of B
+				]
+				(C)
+				{Digital Forensics};
+				
+				\draw[
+				<->,
+				>=Stealth,
+				CyberCyan,
+				line width=1pt
+				]
+				(A) -- (B);
+				
+				\draw[
+				<->,
+				>=Stealth,
+				CyberCyan,
+				line width=1pt
+				]
+				(B) -- (C);
+				
+			\end{tikzpicture}
+			
+		\end{center}
+		
+		\vspace{0.6cm}
+		
+		Formal reasoning provides a mechanism for expressing
+		relationships between evidence, authentication,
+		provenance and attribution.
+		
+	\end{frame}
+	
+	% ============================================================
+	% FORMAL REASONING
+	% ============================================================
+	
+	\section{Formal Reasoning}
+	
+	\begin{frame}{Formalising Digital Evidence}
+		
+		Let
+		
+		\[
+		E = \{e_1,e_2,\ldots,e_n\}
+		\]
+		
+		represent the set of collected digital evidence.
+		
+		Let
+		
+		\[
+		A \subseteq E
+		\]
+		
+		represent evidence that has passed the authentication
+		criteria.
+		
+		Therefore,
+		
+		\[
+		\boxed{A \subseteq E}
+		\]
+		
+		and
+		
+		\[
+		e_i \in A
+		\Rightarrow
+		e_i \text{ satisfies the defined authentication criteria.}
+		\]
+		
+		\vspace{0.4cm}
+		
+		This creates a formal basis for reasoning about
+		digital evidence.
+		
+	\end{frame}
+	
+	% ============================================================
+	% METHODOLOGY
+	% ============================================================
+	
+	\section{Methodology}
+	
+	\begin{frame}{Research Methodology}
+		
+		\begin{center}
+			
+			\begin{tikzpicture}[node distance=0.7cm]
+				
+				\node[
+				draw=CyberBlue,
+				fill=SoftBlue,
+				rounded corners,
+				minimum width=2.5cm,
+				minimum height=.8cm
+				]
+				(L)
+				{Literature};
+				
+				\node[
+				draw=CyberCyan,
+				fill=SoftCyan,
+				rounded corners,
+				minimum width=2.5cm,
+				minimum height=.8cm,
+				right=of L
+				]
+				(D)
+				{Data};
+				
+				\node[
+				draw=CyberBlue,
+				fill=SoftBlue,
+				rounded corners,
+				minimum width=2.5cm,
+				minimum height=.8cm,
+				right=of D
+				]
+				(X)
+				{Experiments};
+				
+				\node[
+				draw=CyberCyan,
+				fill=SoftCyan,
+				rounded corners,
+				minimum width=2.5cm,
+				minimum height=.8cm,
+				right=of X
+				]
+				(F)
+				{Framework};
+				
+				\node[
+				draw=CyberBlue,
+				fill=SoftBlue,
+				rounded corners,
+				minimum width=2.5cm,
+				minimum height=.8cm,
+				right=of F
+				]
+				(E)
+				{Evaluation};
+				
+				\draw[->,CyberCyan,line width=1pt] (L) -- (D);
+				\draw[->,CyberCyan,line width=1pt] (D) -- (X);
+				\draw[->,CyberCyan,line width=1pt] (X) -- (F);
+				\draw[->,CyberCyan,line width=1pt] (F) -- (E);
+				
+			\end{tikzpicture}
+			
+		\end{center}
+		
+		\vspace{0.6cm}
+		
+		\begin{itemize}
+			
+			\item Literature analysis
+			
+			\item Dataset analysis
+			
+			\item Digital forensic experimentation
+			
+			\item AI-assisted cybercrime scenarios
+			
+			\item Framework development
+			
+			\item Experimental evaluation
+			
+		\end{itemize}
+		
+	\end{frame}
+	
+	% ============================================================
+	% PROPOSED FRAMEWORK
+	% ============================================================
+	
+	\section{Proposed Framework}
+	
+	\begin{frame}{Proposed Forensic Framework}
+		
+		\begin{center}
+			
+			\begin{tikzpicture}[node distance=0.55cm]
+				
+				\node[
+				draw=CyberCyan,
+				fill=SoftCyan,
+				rounded corners,
+				minimum width=2cm,
+				minimum height=.85cm
+				]
+				(C)
+				{Collection};
+				
+				\node[
+				draw=CyberBlue,
+				fill=SoftBlue,
+				rounded corners,
+				minimum width=2cm,
+				minimum height=.85cm,
+				right=of C
+				]
+				(P)
+				{Preservation};
+				
+				\node[
+				draw=CyberCyan,
+				fill=SoftCyan,
+				rounded corners,
+				minimum width=2cm,
+				minimum height=.85cm,
+				right=of P
+				]
+				(A)
+				{Authentication};
+				
+				\node[
+				draw=CyberBlue,
+				fill=SoftBlue,
+				rounded corners,
+				minimum width=2cm,
+				minimum height=.85cm,
+				right=of A
+				]
+				(AN)
+				{Analysis};
+				
+				\node[
+				draw=CyberCyan,
+				fill=SoftCyan,
+				rounded corners,
+				minimum width=2cm,
+				minimum height=.85cm,
+				right=of AN
+				]
+				(AT)
+				{Attribution};
+				
+				\node[
+				draw=CyberBlue,
+				fill=SoftBlue,
+				rounded corners,
+				minimum width=2cm,
+				minimum height=.85cm,
+				right=of AT
+				]
+				(PR)
+				{Presentation};
+				
+				\draw[->,CyberCyan,line width=1pt] (C) -- (P);
+				\draw[->,CyberCyan,line width=1pt] (P) -- (A);
+				\draw[->,CyberCyan,line width=1pt] (A) -- (AN);
+				\draw[->,CyberCyan,line width=1pt] (AN) -- (AT);
+				\draw[->,CyberCyan,line width=1pt] (AT) -- (PR);
+				
+			\end{tikzpicture}
+			
+		\end{center}
+		
+		\vspace{0.6cm}
+		
+		\begin{block}{Core Principle}
+			
+			Evidence must remain traceable from its initial collection
+			through analysis and ultimately to its presentation.
+			
+		\end{block}
+		
+	\end{frame}
+	
+	% ============================================================
+	% EXPECTED CONTRIBUTION
+	% ============================================================
+	
+	\section{Contribution to Knowledge}
+	
+	\begin{frame}{Expected Contribution to Knowledge}
+		
+		\begin{center}
+			
+			\begin{tikzpicture}
+				
+				\node[
+				draw=CyberCyan,
+				fill=SoftCyan,
+				line width=1.2pt,
+				rounded corners,
+				minimum width=4cm,
+				minimum height=1.2cm
+				]
+				(F)
+				{\Large
+					\textbf{AI Forensic Framework}
+				};
+				
+				\node[
+				draw=CyberBlue,
+				fill=SoftBlue,
+				rounded corners,
+				minimum width=2.7cm,
+				minimum height=.75cm,
+				above left=1cm and .5cm of F
+				]
+				(P)
+				{Provenance};
+				
+				\node[
+				draw=CyberBlue,
+				fill=SoftBlue,
+				rounded corners,
+				minimum width=2.7cm,
+				minimum height=.75cm,
+				above right=1cm and .5cm of F
+				]
+				(I)
+				{Integrity};
+				
+				\node[
+				draw=CyberBlue,
+				fill=SoftBlue,
+				rounded corners,
+				minimum width=2.7cm,
+				minimum height=.75cm,
+				below left=1cm and .5cm of F
+				]
+				(A)
+				{Attribution};
+				
+				\node[
+				draw=CyberBlue,
+				fill=SoftBlue,
+				rounded corners,
+				minimum width=2.7cm,
+				minimum height=.75cm,
+				below right=1cm and .5cm of F
+				]
+				(C)
+				{Courtroom};
+				
+				\draw[CyberCyan,->,line width=1pt] (P) -- (F);
+				\draw[CyberCyan,->,line width=1pt] (I) -- (F);
+				\draw[CyberCyan,->,line width=1pt] (A) -- (F);
+				\draw[CyberCyan,->,line width=1pt] (C) -- (F);
+				
+			\end{tikzpicture}
+			
+		\end{center}
+		
+	\end{frame}
+	
+	% ============================================================
+	% CONCLUSION
+	% ============================================================
+	
+	\section{Conclusion}
+	
+	\begin{frame}{Conclusion}
+		
+		\begin{block}{Central Argument}
+			
+			AI changes not only how cybercrimes can be committed,
+			but also how digital evidence must be interpreted,
+			authenticated and attributed.
+			
+		\end{block}
+		
+		\vspace{0.6cm}
+		
+		\begin{center}
+			
+			\[
+			\boxed{
+				\text{AI}
+				+
+				\text{Cybercrime}
+				+
+				\text{Digital Forensics}
+				+
+				\text{Evidence}
+			}
+			\]
+			
+		\end{center}
+		
+	\end{frame}
+	
+	% ============================================================
+	% THANK YOU
+	% ============================================================
+	
+	\begin{frame}[plain]
+		
+		\begin{center}
+			
+			\vspace{1.2cm}
+			
+			{\fontsize{34}{40}\selectfont
+				\bfseries
+				\color{CyberBlue}
+				Thank You
+			}
+			
+			\vspace{0.5cm}
+			
+			{\Large
+				\color{DarkText}
+				Questions \& Discussion
+			}
+			
+			\vspace{1cm}
+			
+			\draw[
+			CyberCyan,
+			line width=2pt
+			]
+			(0,0) -- (5,0);
+			
+			\vspace{0.7cm}
+			
+			{\large
+				\textbf{Peter M. Ngugi}
+			}
+			
+			\vspace{0.15cm}
+			
+			{\small
+				PhD in Computer Science\\
+				Zetech University
+			}
+			
+		\end{center}
+		
+	\end{frame}
+	
+	% ============================================================
+	
+\end{document}
